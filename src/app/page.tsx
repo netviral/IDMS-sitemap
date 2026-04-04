@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { getSitemapData, getBaseUrl, slugToLabel, SitemapUrl } from '@/lib/data';
 import styles from './page.module.css';
 
@@ -38,6 +40,18 @@ const Icons = {
   ),
   Search: () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+  ),
+  AI: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" /><path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4zm0 6a2 2 0 1 1 2-2 2 2 0 0 1-2 2z" /><path d="M12 7l-1 2h2zM12 17l-1-2h2zM7 12l2-1v2zM17 12l-2-1v2z" /></svg>
+  ),
+  Terminal: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+  ),
+  Send: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13" /><polyline points="22 2 15 22 11 13 2 9 22 2" /></svg>
+  ),
+  Close: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
   )
 };
 
@@ -126,7 +140,15 @@ export default function Home() {
     const isExpanded = expandedSections[title.toLowerCase()];
 
     return (
-      <div className={styles.section} key={title}>
+      <motion.div
+        layout="position"
+        className={styles.section}
+        key={title}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.2 }}
+      >
         <div
           className={`${styles.sectionHeader} ${styles[type]}`}
           onClick={() => toggleSection(title.toLowerCase())}
@@ -136,35 +158,47 @@ export default function Home() {
           <span className={styles.countBadge}>{items.length}</span>
         </div>
 
-        {isExpanded && (
-          <div className={styles.grid}>
-            {items.map((item, idx) => (
-              <a
-                key={item.path}
-                href={getBaseUrl() + item.path}
-                target="_blank"
-                rel="noopener"
-                className={`${styles.leaf} ${styles[item.type]} fade-in`}
-                style={{ animationDelay: `${idx * 0.05}s` }}
-                onMouseEnter={() => setHoveredUrl(getBaseUrl() + item.path)}
-                onMouseLeave={() => setHoveredUrl(null)}
-              >
-                <div className={styles.leafMain}>
-                  <div className={styles.leafIcon}>{leafIcon(item.type)}</div>
-                  <div className={styles.leafContent}>
-                    <span className={styles.leafLabel}>{slugToLabel(item.path, item.type)}</span>
-                    <span className={styles.leafPath}>{item.path}</span>
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              className={styles.grid}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              {items.map((item, idx) => (
+                <motion.a
+                  key={item.path}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: idx * 0.01 }}
+                  href={getBaseUrl() + item.path}
+                  target="_blank"
+                  rel="noopener"
+                  className={`${styles.leaf} ${styles[item.type]}`}
+                  onMouseEnter={() => setHoveredUrl(getBaseUrl() + item.path)}
+                  onMouseLeave={() => setHoveredUrl(null)}
+                >
+                  <div className={styles.leafMain}>
+                    <div className={styles.leafIcon}>{leafIcon(item.type)}</div>
+                    <div className={styles.leafContent}>
+                      <span className={styles.leafLabel}>{slugToLabel(item.path, item.type)}</span>
+                      <span className={styles.leafPath}>{item.path}</span>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.leafFooter}>
-                  <span className={styles.typeTag}>{item.type}</span>
-                  <div className={`${styles.priorityDot} ${priorityClass(item.priority)}`} />
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
-      </div>
+                  <div className={styles.leafFooter}>
+                    <span className={styles.typeTag}>{item.type}</span>
+                    <div className={`${styles.priorityDot} ${priorityClass(item.priority)}`} />
+                  </div>
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     );
   };
 
@@ -196,13 +230,21 @@ export default function Home() {
             </div>
           </div>
 
-          <button
-            className={styles.themeToggle}
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            title="Toggle Theme"
-          >
-            <Icons.Theme />
-          </button>
+          <div className={styles.headerActions}>
+            <Link
+              className={styles.aiBtn}
+              href="/analyze"
+            >
+              <Icons.AI /> AI Analyse
+            </Link>
+            <button
+              className={styles.themeToggle}
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              title="Toggle Theme"
+            >
+              <Icons.Theme />
+            </button>
+          </div>
         </div>
 
         <div className={styles.controls}>
@@ -258,12 +300,14 @@ export default function Home() {
               </a>
             </div>
 
-            <div className={styles.tree}>
-              {renderSection('Collections', 'collection', filteredData.filter(i => i.type === 'collection'))}
-              {renderSection('Products', 'product', filteredData.filter(i => i.type === 'product'))}
-              {renderSection('Blogs', 'blog', filteredData.filter(i => i.type === 'blog'))}
-              {renderSection('Pages', 'page', filteredData.filter(i => i.type === 'page'))}
-            </div>
+            <motion.div className={styles.tree}>
+              <AnimatePresence mode="popLayout" initial={false}>
+                {renderSection('Collections', 'collection', filteredData.filter(i => i.type === 'collection'))}
+                {renderSection('Products', 'product', filteredData.filter(i => i.type === 'product'))}
+                {renderSection('Blogs', 'blog', filteredData.filter(i => i.type === 'blog'))}
+                {renderSection('Pages', 'page', filteredData.filter(i => i.type === 'page'))}
+              </AnimatePresence>
+            </motion.div>
           </>
         )}
       </div>
