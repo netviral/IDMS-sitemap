@@ -455,3 +455,47 @@
         font-size: 1.75rem;
     }
 }
+
+.chatScrollFooter {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.footerBrand {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.contributors {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 800px;
+}
+
+.builtBy {
+    font-weight: 800;
+    color: var(--text);
+    margin-right: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.contributors a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+
+.contributors a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}

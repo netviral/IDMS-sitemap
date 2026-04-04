@@ -207,7 +207,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerTop}>
           <div className={styles.brand}>
-            <div className={styles.logo}>IDMS</div>
+            <div className={styles.logo}>IDMS Group 8</div>
             <div className={styles.brandSub}>/ sitemap explorer</div>
           </div>
 
@@ -317,7 +317,18 @@ export default function Home() {
       </div>
 
       <footer className={styles.footer}>
-        <p>© 2026 superyou.in • Built with Next.js</p>
+        <div className={styles.footerBrand}>© 2026 superyou.in • IDMS Group 8</div>
+        <div className={styles.contributors}>
+          <span className={styles.builtBy}>Built by:</span>
+          <a href="mailto:ibrahim.khalil_ug25@ashoka.edu.in">Ibrahim Khalil</a>,{' '}
+          <a href="mailto:ananya.karel_ug25@ashoka.edu.in">Ananya Karel</a>,{' '}
+          <a href="mailto:gaurika.bhanot_ug25@ashoka.edu.in">Gaurika Bhanot</a>,{' '}
+          <a href="mailto:roshan.pathak_ug25@ashoka.edu.in">Roshan Pathak</a>,{' '}
+          <a href="mailto:yashvi.mehta_ug2024@ashoka.edu.in">Yashvi Mehta</a>,{' '}
+          <a href="mailto:abhijith.menon_ug2024@ashoka.edu.in">Abhijith Menon</a>,{' '}
+          <a href="mailto:manya.jindal_ug2024@ashoka.edu.in">Manya Jindal</a>,{' '}
+          <a href="mailto:aneesh.dasgupta_ug2024@ashoka.edu.in">Aneesh Dasgupta</a>
+        </div>
       </footer>
     </main>
   );
