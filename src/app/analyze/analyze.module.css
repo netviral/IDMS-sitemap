@@ -216,7 +216,7 @@
 }
 
 .bubbleContent p {
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
 }
 
 .bubbleContent p:last-child {
@@ -228,21 +228,88 @@
 .bubbleContent h3 {
     margin: 1.5rem 0 0.75rem;
     color: var(--accent);
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+
+.bubbleContent h1 {
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+.bubbleContent h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.bubbleContent h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.bubbleContent strong {
+    font-weight: 800;
+    color: var(--text);
+}
+
+.bubbleContent em {
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.bubbleContent ul,
+.bubbleContent ol {
+    padding-left: 1.5rem;
+    margin-bottom: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.bubbleContent ul {
+    list-style: disc;
+}
+
+.bubbleContent ol {
+    list-style: decimal;
 }
 
 .bubbleContent li {
-    margin-bottom: 0.5rem;
-    list-style-type: none;
-    padding-left: 1rem;
-    position: relative;
+    line-height: 1.6;
 }
 
-.bubbleContent li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
+.bubbleContent code {
+    background: rgba(var(--accent-rgb), 0.1);
     color: var(--accent);
-    font-weight: bold;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.9em;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-weight: 600;
+}
+
+.bubbleContent pre {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.bubbleContent pre code {
+    background: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.bubbleContent blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    opacity: 0.8;
+    font-style: italic;
 }
 
 /* Input Area */

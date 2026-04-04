@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 import { getSitemapData, SitemapUrl } from '@/lib/data';
 import styles from './analyze.module.css';
 
@@ -10,7 +11,6 @@ interface Message {
     id: string;
     role: 'user' | 'assistant';
     content: string;
-    status?: string;
 }
 
 const Icons = {
@@ -38,11 +38,6 @@ export default function AnalyzePage() {
     const [isTyping, setIsTyping] = useState(false);
     const [status, setStatus] = useState('');
     const scrollRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        // Ensure theme is set for CSS variables in globals.css
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -80,13 +75,12 @@ export default function AnalyzePage() {
                 priority: item.priority
             }));
 
-            // Construct a prompt that includes history for multi-turn feel
             const historyContext = messages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n');
             const fullPrompt = historyContext
                 ? `${historyContext}\nUser: ${currentInput}`
                 : currentInput;
 
-            setStatus('Seeking Marketing Specialist...');
+            setStatus('Consulting Marketing Intelligence...');
             const response = await fetch('/api/gemini', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -108,24 +102,13 @@ export default function AnalyzePage() {
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'assistant',
-                content: `Error: ${(err as Error).message}`
+                content: `**Error:** ${(err as Error).message}`
             };
             setMessages(prev => [...prev, errorMsg]);
         } finally {
             setIsTyping(false);
             setStatus('');
         }
-    };
-
-    const renderMarkdown = (text: string) => {
-        return text.split('\n').map((line, i) => {
-            if (line.startsWith('# ')) return <h1 key={i}>{line.substring(2)}</h1>;
-            if (line.startsWith('## ')) return <h2 key={i}>{line.substring(3)}</h2>;
-            if (line.startsWith('### ')) return <h3 key={i}>{line.substring(4)}</h3>;
-            if (line.startsWith('- ')) return <li key={i}>{line.substring(2)}</li>;
-            if (line.trim() === '') return <br key={i} />;
-            return <p key={i}>{line}</p>;
-        });
     };
 
     return (
@@ -140,12 +123,12 @@ export default function AnalyzePage() {
                     </div>
                     <div className={styles.headerText}>
                         <h1>Marketing Brain</h1>
-                        <p>{data.length} URLs context loaded</p>
+                        <p>{data.length > 0 ? `${data.length} URLs loaded` : 'Loading sitemap...'}</p>
                     </div>
                 </div>
                 <div className={styles.headerStatus}>
                     <Icons.Sparkles />
-                    <span>Gemini Pro</span>
+                    <span>Gemini Flash</span>
                 </div>
             </header>
 
@@ -157,9 +140,9 @@ export default function AnalyzePage() {
                             <h2>Sitemap Intelligence</h2>
                             <p>Ask anything about the sitemap strategy, SEO gaps, or content opportunities.</p>
                             <div className={styles.suggestions}>
-                                <button onClick={() => { setInput('Find high-priority content gaps'); }}>Find high-priority content gaps</button>
-                                <button onClick={() => { setInput('Analyze site structure for SEO'); }}>Analyze site structure for SEO</button>
-                                <button onClick={() => { setInput('Suggest new blog categories'); }}>Suggest new blog categories</button>
+                                <button onClick={() => setInput('Find high-priority content gaps')}>Find high-priority content gaps</button>
+                                <button onClick={() => setInput('Analyze site structure for SEO')}>Analyze site structure for SEO</button>
+                                <button onClick={() => setInput('Suggest new blog categories')}>Suggest new blog categories</button>
                             </div>
                         </div>
                     )}
@@ -168,8 +151,9 @@ export default function AnalyzePage() {
                         {messages.map((msg) => (
                             <motion.div
                                 key={msg.id}
-                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                initial={{ opacity: 0, y: 10, scale: 0.97 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
+                                transition={{ duration: 0.2 }}
                                 className={`${styles.messageWrapper} ${styles[msg.role]}`}
                             >
                                 <div className={styles.avatar}>
@@ -177,7 +161,11 @@ export default function AnalyzePage() {
                                 </div>
                                 <div className={styles.bubble}>
                                     <div className={styles.bubbleContent}>
-                                        {msg.role === 'user' ? msg.content : renderMarkdown(msg.content)}
+                                        {msg.role === 'user' ? (
+                                            <p>{msg.content}</p>
+                                        ) : (
+                                            <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                        )}
                                     </div>
                                 </div>
                             </motion.div>
@@ -185,7 +173,11 @@ export default function AnalyzePage() {
                     </AnimatePresence>
 
                     {isTyping && (
-                        <div className={`${styles.messageWrapper} ${styles.assistant}`}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className={`${styles.messageWrapper} ${styles.assistant}`}
+                        >
                             <div className={styles.avatar}>
                                 <Icons.AI />
                             </div>
@@ -197,7 +189,7 @@ export default function AnalyzePage() {
                                 </div>
                                 <div className={styles.typingStatus}>{status}</div>
                             </div>
-                        </div>
+                        </motion.div>
                     )}
                 </div>
             </div>
@@ -207,7 +199,8 @@ export default function AnalyzePage() {
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder="Type your analysis instructions..."
+                        placeholder={data.length === 0 ? 'Loading sitemap context...' : 'Ask about SEO, content gaps, strategy...'}
+                        disabled={data.length === 0}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();
@@ -216,7 +209,7 @@ export default function AnalyzePage() {
                         }}
                         rows={1}
                     />
-                    <button type="submit" disabled={isTyping || !input.trim()} className={styles.sendBtn}>
+                    <button type="submit" disabled={isTyping || !input.trim() || data.length === 0} className={styles.sendBtn}>
                         <Icons.Send />
                     </button>
                 </form>
