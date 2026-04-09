@@ -73,7 +73,7 @@ const priorityClass = (p: number) => {
 export default function Home() {
   const [data, setData] = useState<SitemapUrl[]>([]);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState<'all' | 'product' | 'blog' | 'collection' | 'page'>('all');
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({

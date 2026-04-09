@@ -1,1084 +1,1265 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuperYou — Website Strategy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --lime: #c8f135;
-  --lime-dim: #9abf1f;
-  --orange: #f59e3f;
-  --sky: #7dd3f0;
-  --ink: #0d0d0d;
-  --paper: #f5f2ec;
-  --warm: #1a1812;
-  --mid: #3a3830;
-  --fade: #888070;
-  --rule: rgba(200,241,53,0.15);
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Instrument Sans', sans-serif;
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-/* ─── NAV ──────────────────────────────── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  padding: 0 48px;
-  height: 60px;
-  background: rgba(13,13,13,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.nav-brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  color: var(--lime);
-  letter-spacing: 0.02em;
-  margin-right: auto;
-}
-
-.nav-dots {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.nav-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  border: 1px solid var(--fade);
-  cursor: pointer;
-  transition: all 0.2s;
-  background: transparent;
-  padding: 0;
-}
-
-.nav-dot.active { background: var(--lime); border-color: var(--lime); }
-.nav-dot:hover { border-color: var(--lime); }
-
-.nav-counter {
-  margin-left: 20px;
-  font-size: 11px;
-  color: var(--fade);
-  letter-spacing: 0.12em;
-  min-width: 40px;
-  text-align: right;
-}
-
-/* ─── SLIDES ────────────────────────────── */
-.slide {
-  min-height: 100vh;
-  padding: 100px 0 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.slide + .slide {
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-
-/* ─── COVER SLIDE ───────────────────────── */
-#slide-0 {
-  background: var(--ink);
-  padding: 0;
-  min-height: 100vh;
-  justify-content: center;
-}
-
-.cover-inner {
-  padding: 0 80px;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.cover-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fade);
-  margin-bottom: 32px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.cover-eyebrow::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: var(--fade);
-}
-
-.cover-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(56px, 7vw, 96px);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  color: var(--paper);
-  margin-bottom: 12px;
-}
-
-.cover-title em {
-  font-style: italic;
-  color: var(--lime);
-}
-
-.cover-sub {
-  font-size: 14px;
-  color: var(--fade);
-  margin-top: 32px;
-  max-width: 480px;
-  line-height: 1.8;
-}
-
-.cover-meta {
-  margin-top: 64px;
-  display: flex;
-  gap: 48px;
-  align-items: flex-end;
-}
-
-.cover-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.cover-stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--lime);
-  line-height: 1;
-}
-
-.cover-stat-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fade);
-}
-
-.cover-deco {
-  position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,241,53,0.08);
-  pointer-events: none;
-}
-
-.cover-deco::before {
-  content: '';
-  position: absolute;
-  inset: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,241,53,0.05);
-}
-
-.cover-deco::after {
-  content: '';
-  position: absolute;
-  inset: 96px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,241,53,0.06) 0%, transparent 70%);
-}
-
-/* ─── SLIDE INNER ───────────────────────── */
-.slide-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 80px;
-}
-
-/* ─── SLIDE HEADER ──────────────────────── */
-.slide-step {
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.slide-step::after {
-  content: '';
-  flex: 1;
-  max-width: 48px;
-  height: 1px;
-  background: var(--lime);
-  opacity: 0.4;
-}
-
-.slide-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(36px, 4vw, 54px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 48px;
-  color: var(--paper);
-}
-
-.slide-title em {
-  font-style: italic;
-  color: var(--lime);
-}
-
-/* ─── LAYOUTS ───────────────────────────── */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.three-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 32px;
-}
-
-/* ─── CALLOUT BOX ───────────────────────── */
-.callout {
-  border-left: 2px solid var(--lime);
-  padding: 20px 28px;
-  background: rgba(200,241,53,0.04);
-  border-radius: 0 6px 6px 0;
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(245,242,236,0.85);
-  font-style: italic;
-  margin: 32px 0;
-}
-
-/* ─── INSIGHT CARDS ─────────────────────── */
-.card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px;
-  padding: 28px 28px 24px;
-  transition: border-color 0.2s;
-}
-
-.card:hover { border-color: rgba(200,241,53,0.2); }
-
-.card-label {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 10px;
-}
-
-.card-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 19px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  line-height: 1.2;
-  color: var(--paper);
-}
-
-.card-body {
-  font-size: 13px;
-  color: var(--fade);
-  line-height: 1.75;
-}
-
-/* ─── LIST ──────────────────────────────── */
-.clean-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.clean-list li {
-  font-size: 14px;
-  color: rgba(245,242,236,0.75);
-  line-height: 1.6;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.clean-list li::before {
-  content: '—';
-  color: var(--lime);
-  flex-shrink: 0;
-  font-weight: 600;
-  margin-top: 1px;
-}
-
-/* ─── TABLE ─────────────────────────────── */
-.compare-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  margin-top: 8px;
-}
-
-.compare-table th {
-  text-align: left;
-  padding: 10px 16px;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--fade);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  font-weight: 500;
-}
-
-.compare-table td {
-  padding: 13px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  color: rgba(245,242,236,0.75);
-  vertical-align: top;
-  line-height: 1.5;
-}
-
-.compare-table tr:last-child td { border-bottom: none; }
-
-.compare-table td:first-child {
-  color: var(--paper);
-  font-weight: 500;
-}
-
-.tick { color: var(--lime); font-size: 13px; }
-.cross { color: var(--fade); font-size: 13px; }
-
-/* ─── BIG QUOTE ─────────────────────────── */
-.big-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 2.4vw, 28px);
-  font-style: italic;
-  line-height: 1.5;
-  color: var(--paper);
-  max-width: 680px;
-  position: relative;
-  padding-left: 32px;
-}
-
-.big-quote::before {
-  content: '"';
-  position: absolute;
-  left: 0;
-  top: -8px;
-  font-size: 64px;
-  color: var(--lime);
-  opacity: 0.4;
-  line-height: 1;
-  font-style: normal;
-}
-
-/* ─── PILL ──────────────────────────────── */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  font-weight: 500;
-}
-
-.pill-lime { background: rgba(200,241,53,0.12); color: var(--lime); border: 1px solid rgba(200,241,53,0.2); }
-.pill-orange { background: rgba(245,158,63,0.12); color: var(--orange); border: 1px solid rgba(245,158,63,0.2); }
-.pill-sky { background: rgba(125,211,240,0.12); color: var(--sky); border: 1px solid rgba(125,211,240,0.2); }
-.pill-fade { background: rgba(136,128,112,0.1); color: var(--fade); border: 1px solid rgba(136,128,112,0.15); }
-
-/* ─── FLOW STEPS ────────────────────────── */
-.flow-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  margin-bottom: 20px;
-}
-
-.flow-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  position: relative;
-}
-
-.flow-node + .flow-node::before {
-  content: '→';
-  position: absolute;
-  left: -12px;
-  top: 16px;
-  font-size: 14px;
-  color: var(--fade);
-}
-
-.flow-dot {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  letter-spacing: 0.02em;
-  flex-shrink: 0;
-}
-
-.flow-dot-lime { background: rgba(200,241,53,0.15); color: var(--lime); border: 1px solid rgba(200,241,53,0.25); }
-.flow-dot-orange { background: rgba(245,158,63,0.12); color: var(--orange); border: 1px solid rgba(245,158,63,0.2); }
-.flow-dot-sky { background: rgba(125,211,240,0.12); color: var(--sky); border: 1px solid rgba(125,211,240,0.2); }
-
-.flow-label {
-  font-size: 11px;
-  text-align: center;
-  color: rgba(245,242,236,0.65);
-  line-height: 1.4;
-  max-width: 80px;
-}
-
-/* ─── SECTION BG ACCENT ─────────────────── */
-.slide-accent {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.06;
-}
-
-/* ─── LABEL / SECTION DIVIDER ───────────── */
-.section-label {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fade);
-  margin-bottom: 16px;
-  margin-top: 36px;
-}
-
-/* ─── NUMBERED STAT ─────────────────────── */
-.stat-inline {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.stat-inline-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 42px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--lime);
-}
-
-.stat-inline-unit {
-  font-size: 14px;
-  color: var(--fade);
-}
-
-/* ─── FADE IN ───────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.slide-inner > * {
-  animation: fadeUp 0.5s ease both;
-}
-
-/* ─── SCROLLBAR ─────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ink); }
-::-webkit-scrollbar-thumb { background: var(--mid); border-radius: 2px; }
-
-/* ─── PROGRESS BAR ──────────────────────── */
-.progress-bar {
-  position: fixed;
-  top: 60px; left: 0;
-  height: 2px;
-  background: var(--lime);
-  z-index: 998;
-  transition: width 0.1s;
-  width: 0%;
-}
-
-/* ─── FOOTER ────────────────────────────── */
-.slide-footer {
-  position: absolute;
-  bottom: 28px;
-  left: 80px; right: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slide-footer-brand {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(136,128,112,0.4);
-}
-
-.slide-footer-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px;
-  color: rgba(136,128,112,0.3);
-}
-
-/* ─── RESPONSIVE ────────────────────────── */
-@media (max-width: 768px) {
-  .slide-inner, .cover-inner { padding: 0 28px; }
-  .two-col, .three-col { grid-template-columns: 1fr; gap: 28px; }
-  nav { padding: 0 24px; }
-  .cover-deco { display: none; }
-  .slide-footer { left: 28px; right: 28px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperYou — Website Strategy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Instrument+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7a0000;
+      --secondary: #ffcdcd;
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #666666;
+
+      /* Legacy aliases for mapping */
+      --lime: var(--primary);
+      --lime-dim: #5a0000;
+      --orange: #7a0000;
+      --sky: #5a0000;
+      --ink: var(--bg);
+      --paper: var(--text);
+      --warm: #ffffff;
+      --mid: #f5f5f5;
+      --fade: var(--text-muted);
+      --rule: rgba(122, 0, 0, 0.1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ──────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--lime);
+      letter-spacing: 0.02em;
+      margin-right: auto;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid var(--fade);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      padding: 0;
+    }
+
+    .nav-dot.active {
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .nav-dot:hover {
+      border-color: var(--lime);
+    }
+
+    .nav-counter {
+      margin-left: 20px;
+      font-size: 11px;
+      color: var(--fade);
+      letter-spacing: 0.12em;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* ─── SLIDES ────────────────────────────── */
+    .slide {
+      min-height: 100vh;
+      padding: 100px 0 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide+.slide {
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    /* ─── COVER SLIDE ───────────────────────── */
+    #slide-0 {
+      background: var(--ink);
+      padding: 0;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    .cover-inner {
+      padding: 0 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .cover-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fade);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cover-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--fade);
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--paper);
+      margin-bottom: 12px;
+    }
+
+    .cover-title em {
+      font-style: italic;
+      color: var(--lime);
+    }
+
+    .cover-sub {
+      font-size: 14px;
+      color: var(--fade);
+      margin-top: 32px;
+      max-width: 480px;
+      line-height: 1.8;
+    }
+
+    .cover-meta {
+      margin-top: 64px;
+      display: flex;
+      gap: 48px;
+      align-items: flex-end;
+    }
+
+    .cover-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cover-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--lime);
+      line-height: 1;
+    }
+
+    .cover-stat-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fade);
+    }
+
+    .cover-deco {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 1px solid rgba(122, 0, 0, 0.08);
+      pointer-events: none;
+    }
+
+    .cover-deco::before {
+      content: '';
+      position: absolute;
+      inset: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(122, 0, 0, 0.05);
+    }
+
+    .cover-deco::after {
+      content: '';
+      position: absolute;
+      inset: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 205, 205, 0.3) 0%, transparent 70%);
+    }
+
+    /* ─── SLIDE INNER ───────────────────────── */
+    .slide-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 80px;
+    }
+
+    /* ─── SLIDE HEADER ──────────────────────── */
+    .slide-step {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-step::after {
+      content: '';
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: var(--lime);
+      opacity: 0.4;
+    }
+
+    .slide-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      color: var(--paper);
+    }
+
+    .slide-title em {
+      font-style: italic;
+      color: var(--lime);
+    }
+
+    /* ─── LAYOUTS ───────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+
+    /* ─── CALLOUT BOX ───────────────────────── */
+    .callout {
+      border-left: 3px solid var(--primary);
+      padding: 20px 28px;
+      background: var(--secondary);
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      font-style: italic;
+      margin: 32px 0;
+    }
+
+    /* ─── INSIGHT CARDS ─────────────────────── */
+    .card {
+      background: #fcfcfc;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .card:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 8px 24px rgba(122, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .card-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.2;
+      color: var(--paper);
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--fade);
+      line-height: 1.75;
+    }
+
+    /* ─── LIST ──────────────────────────────── */
+    .clean-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .clean-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .clean-list li::before {
+      content: '—';
+      color: var(--lime);
+      flex-shrink: 0;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    /* ─── TABLE ─────────────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .compare-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fade);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      font-weight: 500;
+    }
+
+    .compare-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      color: var(--text-muted);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .tick {
+      color: var(--primary);
+      font-size: 13px;
+    }
+
+    .cross {
+      color: #dddddd;
+      font-size: 13px;
+    }
+
+    .icon-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-box.active {
+      background: #000;
+      color: #fff;
+    }
+
+    .icon-box.inactive {
+      background: #f0f0f0;
+      color: #ccc;
+    }
+
+    .ia-table {
+      margin-top: 32px;
+    }
+
+    .ia-table th {
+      background: #fafafa;
+      border-bottom: 2px solid #000;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .ia-table td {
+      padding: 16px;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .ia-table tr:hover td {
+      background: #fffcfc;
+    }
+
+    /* ─── BIG QUOTE ─────────────────────────── */
+    .big-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.4vw, 28px);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--paper);
+      max-width: 680px;
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .big-quote::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -8px;
+      font-size: 64px;
+      color: var(--lime);
+      opacity: 0.4;
+      line-height: 1;
+      font-style: normal;
+    }
+
+    /* ─── PILL ──────────────────────────────── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    .pill-lime {
+      background: var(--secondary);
+      color: var(--primary);
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .pill-orange {
+      background: #fff5f5;
+      color: #7a0000;
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .pill-sky {
+      background: #f0f7ff;
+      color: #7a0000;
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .pill-fade {
+      background: #f5f5f5;
+      color: var(--fade);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* ─── FLOW STEPS ────────────────────────── */
+    .flow-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+
+    .flow-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+
+    .flow-node+.flow-node::before {
+      content: '→';
+      position: absolute;
+      left: -12px;
+      top: 16px;
+      font-size: 14px;
+      color: var(--fade);
+    }
+
+    .flow-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .flow-dot-lime {
+      background: var(--secondary);
+      color: var(--primary);
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .flow-dot-orange {
+      background: #fff5f5;
+      color: var(--primary);
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .flow-dot-sky {
+      background: #f0f7ff;
+      color: var(--primary);
+      border: 1px solid rgba(122, 0, 0, 0.1);
+    }
+
+    .flow-label {
+      font-size: 11px;
+      text-align: center;
+      color: var(--text-muted);
+      line-height: 1.4;
+      max-width: 80px;
+    }
+
+    /* ─── SECTION BG ACCENT ─────────────────── */
+    .slide-accent {
+      position: absolute;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.06;
+    }
+
+    /* ─── LABEL / SECTION DIVIDER ───────────── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fade);
+      margin-bottom: 16px;
+      margin-top: 36px;
+    }
+
+    /* ─── NUMBERED STAT ─────────────────────── */
+    .stat-inline {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .stat-inline-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--lime);
+    }
+
+    .stat-inline-unit {
+      font-size: 14px;
+      color: var(--fade);
+    }
+
+    /* ─── FADE IN ───────────────────────────── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-inner>* {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    /* ─── SCROLLBAR ─────────────────────────── */
+    ::webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    /* ─── PROGRESS BAR ──────────────────────── */
+    .progress-bar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      height: 2px;
+      background: var(--lime);
+      z-index: 998;
+      transition: width 0.1s;
+      width: 0%;
+    }
+
+    /* ─── FOOTER ────────────────────────────── */
+    .slide-footer {
+      position: absolute;
+      bottom: 28px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .slide-footer-brand {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.2);
+    }
+
+    .slide-footer-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.15);
+    }
+
+    /* ─── RESPONSIVE ────────────────────────── */
+    @media (max-width: 768px) {
+
+      .slide-inner,
+      .cover-inner {
+        padding: 0 28px;
+      }
+
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      nav {
+        padding: 0 24px;
+      }
+
+      .cover-deco {
+        display: none;
+      }
+
+      .slide-footer {
+        left: 28px;
+        right: 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="progress-bar" id="progress"></div>
+  <div class="progress-bar" id="progress"></div>
 
-<nav>
-  <div class="nav-brand">SuperYou — Website Strategy</div>
-  <div class="nav-dots" id="navDots"></div>
-  <div class="nav-counter" id="navCounter">01 / 08</div>
-</nav>
+  <nav>
+    <div class="nav-brand">SuperYou — Website Strategy</div>
+    <div class="nav-dots" id="navDots"></div>
+    <div class="nav-counter" id="navCounter">01 / 07</div>
+  </nav>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 0 — COVER -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-0" data-index="0">
-  <div class="cover-inner">
-    <div class="cover-eyebrow">Website Strategy · 2026</div>
-    <h1 class="cover-title">
-      Website<br><em>Strategy</em>
-    </h1>
-    <p class="cover-sub">A 7-step framework to transform superyou.in from a Shopify catalogue into a conversion machine built around India's most misunderstood protein ingredient.</p>
-    <div class="cover-meta">
-      <div class="cover-stat">
-        <div class="cover-stat-num">72</div>
-        <div class="cover-stat-label">Total URLs</div>
-      </div>
-      <div class="cover-stat">
-        <div class="cover-stat-num" style="color:var(--orange)">37</div>
-        <div class="cover-stat-label">Products</div>
-      </div>
-      <div class="cover-stat">
-        <div class="cover-stat-num" style="color:var(--sky)">21</div>
-        <div class="cover-stat-label">Blog Posts</div>
-      </div>
-      <div class="cover-stat">
-        <div class="cover-stat-num" style="color:var(--fade)">7</div>
-        <div class="cover-stat-label">Steps Ahead</div>
+  <!-- SLIDE 0 — COVER -->
+  <section class="slide" id="slide-0" data-index="0">
+    <div class="cover-inner">
+      <div class="cover-eyebrow">Website Strategy · 2026</div>
+      <h1 class="cover-title">
+        Website<br><em>Strategy</em>
+      </h1>
+      <p class="cover-sub">A premium 7-step framework to transform superyou.in from a Shopify catalogue into an
+        interactive conversion ecosystem.</p>
+      <div class="cover-meta">
+        <div class="cover-stat">
+          <div class="cover-stat-num">72</div>
+          <div class="cover-stat-label">Total URLs</div>
+        </div>
+        <div class="cover-stat">
+          <div class="cover-stat-num">7</div>
+          <div class="cover-stat-label">Strategic Slides</div>
+        </div>
+        <div class="cover-stat">
+          <div class="cover-stat-num">300%</div>
+          <div class="cover-stat-label">Retention Target</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="cover-deco"></div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">00</span>
-  </div>
-</section>
+    <div class="cover-deco"></div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">00</span>
+    </div>
+  </section>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 1 — WEBSITE GOAL -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-1" data-index="1">
-  <div class="slide-accent" style="width:600px;height:600px;background:var(--lime);top:-200px;right:-200px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 01 — Website Goal</div>
-    <h2 class="slide-title">The <em>one job</em><br>the site must do</h2>
+  <!-- SLIDE 1 — WEBSITE GOAL -->
+  <section class="slide" id="slide-1" data-index="1">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 1 — Website Goal</div>
+      <h2 class="slide-title">Website <em>Goal</em></h2>
 
-    <div class="two-col">
-      <div>
-        <div class="big-quote">Help a skeptical, health-conscious Indian consumer understand why fermented yeast protein is better for their gut — and buy their first pack in under 3 minutes.</div>
+      <div class="two-col">
+        <div>
+          <div class="card-label">Primary Goal</div>
+          <div class="big-quote">Convert first-time visitors into repeat buyers of a novel protein format they've never
+            heard of before.</div>
 
-        <div class="section-label" style="margin-top:40px">The core tension</div>
-        <p style="font-size:14px;color:rgba(245,242,236,0.65);line-height:1.8;max-width:420px">SuperYou sells an unfamiliar ingredient in a crowded category. The site must <em style="color:var(--paper);font-style:italic">educate fast</em> and <em style="color:var(--paper);font-style:italic">sell confidently</em> at the same time — without one undermining the other.</p>
+          <div class="section-label">The core tension</div>
+          <p style="font-size:14px;color:var(--text-muted);line-height:1.7">SuperYou sells fermented yeast protein — a
+            completely unfamiliar ingredient. The site must do two jobs simultaneously: <strong>educate fast</strong>
+            and <strong>sell confidently</strong>.</p>
+
+          <div class="section-label">The single sentence goal</div>
+          <div class="callout">"Help a skeptical, health-conscious Indian consumer understand why fermented yeast
+            protein is better for their gut — and buy their first pack in under 3 minutes."</div>
+        </div>
+
+        <div>
+          <div class="section-label">Business goals (from sitemap signals)</div>
+          <ul class="clean-list" style="margin-bottom:32px">
+            <li>Drive product sales across wafers, powders, and creatine</li>
+            <li>Build a subscription/loyalty base (SuperYou Pro, Refer & Earn)</li>
+            <li>Establish authority in the fermented protein niche (20+ blog posts)</li>
+            <li>Expand into merchandise (shakers, pro shaker — community building)</li>
+          </ul>
+
+          <div class="section-label">What the site is NOT doing well yet</div>
+          <ul class="clean-list">
+            <li>No quiz, no bundle builder, no "start here" flow for new visitors</li>
+            <li>Pro/affiliate program is buried in /pages — not part of a growth funnel</li>
+            <li>No visible blog category structure beyond one umbrella topic</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">01</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — SITEMAP -->
+  <section class="slide" id="slide-2" data-index="2">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 2 — Sitemap</div>
+      <h2 class="slide-title">72 URLs. <em>4 Content Types.</em></h2>
+
+      <div class="two-col">
+        <div>
+          <div class="section-label">Current sitemap health</div>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>Count</th>
+                <th>Health</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Products</td>
+                <td>37</td>
+                <td style="color:var(--primary)">Bloated — bundle variants, not distinct products</td>
+              </tr>
+              <tr>
+                <td>Blogs</td>
+                <td>21</td>
+                <td style="color:var(--primary)">Strong — deep topical cluster on one subject</td>
+              </tr>
+              <tr>
+                <td>Collections</td>
+                <td>8</td>
+                <td style="color:var(--primary)">Redundant — /all, /all-products, /bestseller overlap</td>
+              </tr>
+              <tr>
+                <td>Pages</td>
+                <td>6</td>
+                <td style="color:var(--primary)">Thin — no dedicated landing pages for paid traffic</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label" style="margin-top:40px">What's working</div>
+          <ul class="clean-list">
+            <li>Blog cluster is excellent for SEO — clear topical authority</li>
+            <li>Collection segmentation gives clear shopping pathways</li>
+            <li>SuperYou Pro + affiliate pages suggest a donor/loyalty program</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="section-label">What's missing entirely</div>
+          <ul class="clean-list" style="margin-bottom:28px">
+            <li>No /about-the-ingredient or /why-fermented-yeast landing page</li>
+            <li>No /reviews or /science trust page</li>
+            <li>No dedicated /starter-pack landing page</li>
+            <li>No /compare page (competitor comparison)</li>
+            <li>No /quiz or /routine-builder</li>
+          </ul>
+
+          <div class="section-label">Recommended additions</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="pill pill-lime">/why-fermented-yeast</span>
+            <span class="pill pill-lime">/pages/starter-kit</span>
+            <span class="pill pill-lime">/pages/compare</span>
+            <span class="pill pill-lime">/pages/reviews</span>
+            <span class="pill pill-lime">/collections/combos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">02</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 — CONSUMER FLOW -->
+  <section class="slide" id="slide-3" data-index="3">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 3 — Consumer Flow</div>
+      <h2 class="slide-title">3 distinct <em>visitor types</em></h2>
+
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Type A</div>
+          <div class="card-title">Curious Newcomer</div>
+          <p class="card-body">Landed from an ad. Skeptical. Has never heard of fermented yeast protein.</p>
+          <p style="font-size:11px;color:var(--primary);margin-top:10px;font-weight:700">Ad → HP → Education → PDP →
+            Checkout</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:5px">Gap: No clear bridge from homepage to
+            education.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Type B</div>
+          <div class="card-title">Comparison Shopper</div>
+          <p class="card-body">Already uses protein. Searching for an upgrade via Google.</p>
+          <p style="font-size:11px;color:var(--primary);margin-top:10px;font-weight:700">Google → Blog → Collections →
+            PDP → Checkout</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:5px">Status: Well-served by strong Blog SEO
+            cluster.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Type C</div>
+          <div class="card-title">Repeat Buyer</div>
+          <p class="card-body">Knows the brand, coming back for a specific product or bundle.</p>
+          <p style="font-size:11px;color:var(--primary);margin-top:10px;font-weight:700">Direct URL → Collections →
+            PDP/Bundle → Checkout</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:5px">Gap: No reorder flow or subscription.</p>
+        </div>
       </div>
 
-      <div>
-        <div class="section-label">Business goals — from site signals</div>
-        <ul class="clean-list" style="margin-bottom:32px">
-          <li>Convert first-time visitors on a novel product format</li>
-          <li>Build a subscription base via SuperYou Pro + Refer & Earn</li>
-          <li>Establish topical authority in fermented protein (20+ blog posts)</li>
-          <li>Grow community through merchandise (shakers, Pro program)</li>
-        </ul>
-
-        <div class="section-label">What the site is not doing yet</div>
+      <div class="section-label" style="margin-top:48px">Critical drop-off points to fix</div>
+      <div class="two-col">
         <ul class="clean-list">
-          <li>No quiz or guided "start here" flow for new visitors</li>
-          <li>Pro & affiliate program buried — not in the purchase funnel</li>
-          <li>Blog and commerce live in separate silos</li>
+          <li>Homepage → no clear next step for first-timers</li>
+          <li>Blog posts → no inline add-to-cart or product embed</li>
+        </ul>
+        <ul class="clean-list">
+          <li>Collections/all-products are duplicate dead ends</li>
+          <li>SuperYou Pro buried — needs post-purchase flow</li>
         </ul>
       </div>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">01</span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 2 — SITEMAP -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-2" data-index="2">
-  <div class="slide-accent" style="width:500px;height:500px;background:var(--orange);bottom:-200px;left:-150px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 02 — Sitemap</div>
-    <h2 class="slide-title">72 URLs.<br><em>One architecture problem.</em></h2>
-
-    <div class="two-col">
-      <div>
-        <div class="section-label">Current state</div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Section</th>
-              <th>Count</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Products</td>
-              <td><span style="color:var(--orange);font-family:'Playfair Display',serif;font-size:17px;font-weight:700">37</span></td>
-              <td style="color:var(--orange);font-size:11px">Bloated — many bundle variants</td>
-            </tr>
-            <tr>
-              <td>Blog Posts</td>
-              <td><span style="color:var(--sky);font-family:'Playfair Display',serif;font-size:17px;font-weight:700">21</span></td>
-              <td style="color:var(--lime);font-size:11px">Strong — tight topical cluster</td>
-            </tr>
-            <tr>
-              <td>Collections</td>
-              <td><span style="color:var(--fade);font-family:'Playfair Display',serif;font-size:17px;font-weight:700">8</span></td>
-              <td style="color:var(--orange);font-size:11px">Redundant — /all overlaps /all-products</td>
-            </tr>
-            <tr>
-              <td>Pages</td>
-              <td><span style="color:var(--fade);font-family:'Playfair Display',serif;font-size:17px;font-weight:700">6</span></td>
-              <td style="color:var(--fade);font-size:11px">Thin — no paid landing pages</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <div class="section-label">Missing from sitemap entirely</div>
-        <ul class="clean-list" style="margin-bottom:28px">
-          <li><strong style="color:var(--paper)">/pages/why-fermented-yeast</strong> — hero education page</li>
-          <li><strong style="color:var(--paper)">/pages/starter-kit</strong> — guided first purchase</li>
-          <li><strong style="color:var(--paper)">/pages/compare</strong> — FYP vs Whey vs Soy</li>
-          <li><strong style="color:var(--paper)">/pages/reviews</strong> — consolidated social proof</li>
-          <li><strong style="color:var(--paper)">/quiz</strong> — product finder</li>
-          <li><strong style="color:var(--paper)">/collections/combos</strong> — surface bundles explicitly</li>
-        </ul>
-
-        <div class="callout" style="margin-top:0">The blog cluster is the brand's most valuable SEO asset. It just needs to be connected to commerce.</div>
-      </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">03</span>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">02</span>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 3 — CONSUMER FLOW -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-3" data-index="3">
-  <div class="slide-accent" style="width:400px;height:400px;background:var(--sky);top:-100px;right:-100px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 03 — Consumer Flow</div>
-    <h2 class="slide-title">Three visitors.<br><em>Three journeys.</em></h2>
+  <!-- SLIDE 4 — CONTENT ENGINE -->
+  <section class="slide" id="slide-4" data-index="4">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 4 — Content Engine</div>
+      <h2 class="slide-title">20-post cluster. <em>Disconnected engine.</em></h2>
 
-    <div class="three-col">
-      <div class="card">
-        <div class="card-label">Type A · Largest segment</div>
-        <div class="card-title">The Curious Newcomer</div>
-        <p class="card-body" style="margin-bottom:20px">Landed from an ad. Has never heard of fermented yeast. Skeptical but open.</p>
-        <div style="display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--fade)">
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--lime)">→</span> Ad or social</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--lime)">→</span> Homepage</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--lime)">→</span> Blog (Whey vs FYP)</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--lime)">→</span> Product page</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--lime)">→</span> Checkout</div>
+      <div class="two-col">
+        <div>
+          <div class="section-label">Topical Authority: FYP</div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px">The 20-post blog targets fermented yeast
+            protein. Smart niche play with low competition.</p>
+          <div class="clean-list">
+            <li><strong>Comparison</strong> — vs Whey, vs Soy (capturing switchers)</li>
+            <li><strong>Gut & Digestion</strong> — bloating, IBS (high conversion)</li>
+            <li><strong>Performance</strong> — muscle, endurance (aspiration)</li>
+            <li><strong>Science</strong> — amino acids, fermentation process (trust)</li>
+            <li><strong>Brand story</strong> — Behind the scenes (credibility)</li>
+          </div>
         </div>
-        <div style="margin-top:16px;padding:10px 12px;background:rgba(245,158,63,0.07);border-radius:4px;border-left:2px solid var(--orange);font-size:11px;color:var(--orange)">Gap: No bridge from homepage → education → purchase</div>
+
+        <div>
+          <div class="section-label">What's missing</div>
+          <ul class="clean-list">
+            <li><strong>Video content</strong> — zero video URLs in sitemap</li>
+            <li><strong>UGC layer</strong> — no /reviews or community path</li>
+            <li><strong>Comparison page</strong> — no dedicated landing page</li>
+            <li><strong>Recipes</strong> — no "how to use daily" content</li>
+            <li><strong>Regional</strong> — India-specific deficiency stats</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="card-label">Type B · High intent</div>
-        <div class="card-title">The Comparison Shopper</div>
-        <p class="card-body" style="margin-bottom:20px">Already uses whey or plant protein. Searching for an upgrade. Finds you via Google.</p>
-        <div style="display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--fade)">
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--sky)">→</span> Google search</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--sky)">→</span> Blog post</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--sky)">→</span> Collections</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--sky)">→</span> Product page</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--sky)">→</span> Checkout</div>
-        </div>
-        <div style="margin-top:16px;padding:10px 12px;background:rgba(200,241,53,0.06);border-radius:4px;border-left:2px solid var(--lime);font-size:11px;color:var(--lime)">Well-served. Blog SEO is strong here.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Type C · Returning</div>
-        <div class="card-title">The Repeat Buyer</div>
-        <p class="card-body" style="margin-bottom:20px">Knows the brand. Coming back for a specific product, bundle, or restock.</p>
-        <div style="display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--fade)">
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--fade)">→</span> Homepage / direct URL</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--fade)">→</span> Collections</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--fade)">→</span> Product or bundle</div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--fade)">→</span> Checkout</div>
-        </div>
-        <div style="margin-top:16px;padding:10px 12px;background:rgba(245,158,63,0.07);border-radius:4px;border-left:2px solid var(--orange);font-size:11px;color:var(--orange)">Gap: No loyalty flow, no reorder, no subscription</div>
-      </div>
+      <div class="callout" style="margin-top:40px">Recommended schedule: 2 blogs/month sustaining cluster + 1 "vs" post
+        targeting competitor keywords. <strong>Huge win: Add product CTAs inside existing posts.</strong></div>
     </div>
-
-    <div class="callout" style="margin-top:36px">SuperYou Pro and Refer & Earn exist — they just never appear in the purchase journey. Post-checkout is an untapped retention moment.</div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">03</span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 4 — CONTENT ENGINE -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-4" data-index="4">
-  <div class="slide-accent" style="width:480px;height:480px;background:var(--lime);bottom:-150px;right:-100px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 04 — Content Engine</div>
-    <h2 class="slide-title">Great content.<br><em>Disconnected engine.</em></h2>
-
-    <div class="two-col">
-      <div>
-        <div class="section-label">5 existing content pillars</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px">
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:6px">
-            <span style="color:var(--lime);font-size:18px">⚖</span>
-            <div>
-              <div style="font-size:13px;font-weight:500;color:var(--paper)">Comparison</div>
-              <div style="font-size:11px;color:var(--fade)">vs Whey, vs Soy — captures switchers</div>
-            </div>
-            <span class="pill pill-lime" style="margin-left:auto">High intent</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:6px">
-            <span style="color:var(--sky);font-size:18px">🫀</span>
-            <div>
-              <div style="font-size:13px;font-weight:500;color:var(--paper)">Gut & Digestion</div>
-              <div style="font-size:11px;color:var(--fade)">Bloating, IBS, microbiome — high pain point</div>
-            </div>
-            <span class="pill pill-sky" style="margin-left:auto">High CVR</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:6px">
-            <span style="color:var(--orange);font-size:18px">🏋</span>
-            <div>
-              <div style="font-size:13px;font-weight:500;color:var(--paper)">Performance</div>
-              <div style="font-size:11px;color:var(--fade)">Muscle, endurance, athletes</div>
-            </div>
-            <span class="pill pill-orange" style="margin-left:auto">Aspiration</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:6px">
-            <span style="color:var(--lime);font-size:18px">🔬</span>
-            <div>
-              <div style="font-size:13px;font-weight:500;color:var(--paper)">Science</div>
-              <div style="font-size:11px;color:var(--fade)">Amino acids, DIAAS, fermentation</div>
-            </div>
-            <span class="pill pill-fade" style="margin-left:auto">Trust</span>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-label">Missing from the content engine</div>
-        <ul class="clean-list" style="margin-bottom:28px">
-          <li><strong style="color:var(--paper)">Video content</strong> — zero video URLs; fermented yeast is highly explainable visually</li>
-          <li><strong style="color:var(--paper)">UGC layer</strong> — no /reviews or community content path</li>
-          <li><strong style="color:var(--paper)">Recipes & use cases</strong> — how to use the product daily (retention play)</li>
-          <li><strong style="color:var(--paper)">Regional angle</strong> — India's vegetarian protein gap is a massive unaddressed frame</li>
-          <li><strong style="color:var(--paper)">Product CTAs in blogs</strong> — biggest quick win, zero cost</li>
-        </ul>
-
-        <div style="padding:20px 24px;background:rgba(200,241,53,0.05);border-radius:8px;border:1px solid rgba(200,241,53,0.1)">
-          <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:10px">Quick win</div>
-          <p style="font-size:13px;color:rgba(245,242,236,0.75);line-height:1.7">Add inline product cards to all 21 blog posts. Every gut-health post should surface the protein powder with a buy button. This is the highest-ROI change available today.</p>
-        </div>
-      </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">04</span>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">04</span>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 5 — IA / COMPETITIVE -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-5" data-index="5">
-  <div class="slide-accent" style="width:450px;height:450px;background:var(--orange);top:-100px;left:-150px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 05 — IA (Comp vs Us)</div>
-    <h2 class="slide-title">Right content.<br><em>Wrong architecture.</em></h2>
+  <!-- SLIDE 5 — IA Competitor Benchmarking -->
+  <section class="slide" id="slide-5" data-index="5">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 5 — IA Competitor Benchmarking</div>
+      <h2 class="slide-title">IA <em>Gap Analysis</em></h2>
 
-    <div class="two-col">
-      <div>
-        <div class="section-label">vs MuscleBlaze · MyProtein · Competitors</div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>Competitors</th>
-              <th>SuperYou</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Mega nav with categories</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Buried</td>
-            </tr>
-            <tr>
-              <td>Best Seller shelf on homepage</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Unclear</td>
-            </tr>
-            <tr>
-              <td>Protein quiz / finder</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Missing</td>
-            </tr>
-            <tr>
-              <td>Reviews / trust page</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Not in sitemap</td>
-            </tr>
-            <tr>
-              <td>Subscription / auto-refill</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Not visible</td>
-            </tr>
-            <tr>
-              <td>Science / ingredient page</td>
-              <td><span class="tick">✓</span></td>
-              <td><span class="cross">–</span> Missing</td>
-            </tr>
-            <tr>
-              <td>Bundle builder</td>
-              <td><span class="tick">✓</span></td>
-              <td><span style="color:var(--orange)">~</span> Exists, not surfaced</td>
-            </tr>
-            <tr>
-              <td>Loyalty / referral program</td>
-              <td><span class="tick">✓</span></td>
-              <td><span style="color:var(--orange)">~</span> Hidden in /pages</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="compare-table ia-table">
+        <thead>
+          <tr>
+            <th>Platform Feature</th>
+            <th>Competitor Standard</th>
+            <th>SuperYou Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Category mega navigation</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>MuscleBlaze / MyProtein</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Collections buried</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>"Best Seller" visual shelf</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>Standard D2C practice</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Unclear intent</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Protein quiz / finder</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>Direct pathing</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Missing</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Reviews page / social proof</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>Trustpilot / Reviews page</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Not in sitemap</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Subscription / auto-refill</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>High LTV model</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Not visible</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Science / ingredient page</td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <span>Education as authority</span>
+              </div>
+            </td>
+            <td>
+              <div class="icon-cell">
+                <div class="icon-box inactive"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg></div>
+                <span style="color:var(--primary); font-weight:600">Missing</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-      <div>
-        <div class="section-label">Where SuperYou is ahead</div>
-        <ul class="clean-list" style="margin-bottom:32px">
-          <li><strong style="color:var(--paper)">Blog depth</strong> beats most Indian D2C nutrition brands — 21 posts on one precise ingredient is rare</li>
-          <li><strong style="color:var(--paper)">Creatine as separate collection</strong> shows smart category thinking beyond just protein</li>
-          <li><strong style="color:var(--paper)">Mini wafers collection</strong> shows they understand snack format, not just supplement format</li>
-          <li><strong style="color:var(--paper)">Affiliate + Refer & Earn</strong> signals community thinking most competitors lack</li>
-        </ul>
-
-        <div class="callout" style="margin-top:0">SuperYou has the right <em>content</em> but the wrong <em>architecture</em> — education and commerce live in separate silos instead of feeding each other.</div>
-      </div>
+      <div class="callout" style="margin-top:40px"><strong>The IA Problem:</strong> SuperYou has the right content but
+        the wrong architecture - education and commerce live in silos instead of feeding each other.</div>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">05</span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 6 — INTERACTION -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-6" data-index="6">
-  <div class="slide-accent" style="width:520px;height:520px;background:var(--sky);bottom:-200px;right:-150px;"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 06 — Interaction</div>
-    <h2 class="slide-title">From browse-and-buy<br>to <em>decide-and-stay.</em></h2>
-
-    <div class="three-col">
-      <div class="card">
-        <div class="card-label">Priority 1</div>
-        <div class="card-title">Blog → Product Bridge</div>
-        <p class="card-body">Inline product cards inside every blog post. Gut health article → protein powder CTA. The single highest-ROI interaction change available today. Blogs are currently a dead end.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Priority 2</div>
-        <div class="card-title">"Find Your Protein" Quiz</div>
-        <p class="card-body">3 questions: dietary preference → health goal → lifestyle. Output: a recommended product + blog post pair. Reduces decision fatigue for first-timers. Particularly powerful on mobile.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Priority 3</div>
-        <div class="card-title">Ingredient Explainer</div>
-        <p class="card-body">A scroll-driven animated breakdown of the fermentation process. Makes the unfamiliar feel premium. Not a blog post — a standalone experience page. Think Ritual vitamins or AG1.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Priority 4</div>
-        <div class="card-title">Bundle Customiser</div>
-        <p class="card-body">Build your stack — protein + creatine + shaker. Live price update. Surfaces the bundling logic that already exists in the catalogue but is invisible to visitors.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Priority 5</div>
-        <div class="card-title">Subscription Toggle on PDP</div>
-        <p class="card-body">One-time vs Subscribe & Save. Dramatically increases LTV for a consumable product. Especially powerful on powders and creatine where consistency is the use case.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Priority 6 · Aspirational</div>
-        <div class="card-title">30-Day Gut Tracker</div>
-        <p class="card-body">Logged-in experience tied to SuperYou Pro. Weekly wellbeing check-ins. Builds loyalty and generates testimonials organically. Turns the SuperYou Pro page from a promo into a product.</p>
-      </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">05</span>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">06</span>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- SLIDE 7 — WOW FACTOR -->
-<!-- ══════════════════════════════════════════ -->
-<section class="slide" id="slide-7" data-index="7">
-  <div class="slide-accent" style="width:600px;height:600px;background:var(--lime);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-  <div class="slide-inner">
-    <div class="slide-step">Step 07 — Wow Factor</div>
-    <h2 class="slide-title">Every competitor sells macros.<br><em>SuperYou sells how it feels.</em></h2>
+  <!-- SLIDE 6 — Interaction -->
+  <section class="slide" id="slide-6" data-index="6">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 6 — Interaction model</div>
+      <h2 class="slide-title">From <em>Browse-and-buy</em> to <em>Engage-and-build</em></h2>
 
-    <div style="margin-bottom:48px">
-      <div class="callout" style="max-width:680px">The single biggest opportunity: own "Gut-First Protein" with an interactive, immersive ingredient story that no Indian protein brand is doing.</div>
-    </div>
-
-    <div class="two-col" style="gap:40px">
-      <div style="display:flex;flex-direction:column;gap:20px">
-        <div style="padding:24px;border:1px solid rgba(200,241,53,0.15);border-radius:8px;background:rgba(200,241,53,0.03)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="color:var(--lime);font-family:'Playfair Display',serif;font-size:20px;font-weight:700">01</span>
-            <div style="font-size:14px;font-weight:500;color:var(--paper)">The Fermentation Story Page</div>
-          </div>
-          <p style="font-size:13px;color:var(--fade);line-height:1.75">Full-screen, scroll-animated page: grain → fermentation tank → protein extraction → your gut. Built like an editorial feature, not a FAQ. Gives visitors something to share and a claim no competitor can copy quickly.</p>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-title">1. Ingredient Explainer</div>
+          <p class="card-body">Scroll-driven breakdown of the fermentation process. Make the unfamiliar feel premium.
+          </p>
         </div>
-
-        <div style="padding:24px;border:1px solid rgba(125,211,240,0.15);border-radius:8px;background:rgba(125,211,240,0.03)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="color:var(--sky);font-family:'Playfair Display',serif;font-size:20px;font-weight:700">02</span>
-            <div style="font-size:14px;font-weight:500;color:var(--paper)">First 30 Days Journey</div>
-          </div>
-          <p style="font-size:13px;color:var(--fade);line-height:1.75">Interactive post-purchase onboarding. Day 1, 7, 14, 30 content. The blog "New to Protein? Give Your Gut Time" already exists — this is the interactive version. Turns the most common drop-off point into a retention moment.</p>
+        <div class="card">
+          <div class="card-title">2. "Find Your Protein" Quiz</div>
+          <p class="card-body">Preference → Goal → Lifestyle quiz with product + blog output.</p>
         </div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:20px">
-        <div style="padding:24px;border:1px solid rgba(245,158,63,0.15);border-radius:8px;background:rgba(245,158,63,0.03)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="color:var(--orange);font-family:'Playfair Display',serif;font-size:20px;font-weight:700">03</span>
-            <div style="font-size:14px;font-weight:500;color:var(--paper)">The Protein Zone as Brand Universe</div>
-          </div>
-          <p style="font-size:13px;color:var(--fade);line-height:1.75">The blog is called "The Protein Zone" — that's a brand asset. Give it its own visual identity, issue numbers, featured reads. Makes content feel curated, not just keyword-targeted. Press-worthy.</p>
+        <div class="card">
+          <div class="card-title">3. Blog → Product Bridge</div>
+          <p class="card-body">Inline product cards inside blog posts to bridge education and commerce.</p>
         </div>
-
-        <div style="padding:24px;border:1px solid rgba(200,241,53,0.15);border-radius:8px;background:rgba(200,241,53,0.03)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="color:var(--lime);font-family:'Playfair Display',serif;font-size:20px;font-weight:700">04</span>
-            <div style="font-size:14px;font-weight:500;color:var(--paper)">Taste-First Visual Language</div>
-          </div>
-          <p style="font-size:13px;color:var(--fade);line-height:1.75">Choco Peanut Butter. Strawberry Crème. Cold Coffee. These are craveable snack flavours, not clinical supplement names. The site should lead with taste photography the way a snack brand would. That dissonance between "it's a supplement" and "it looks like a snack" <em style="color:var(--paper)">is</em> the wow factor.</p>
+        <div class="card">
+          <div class="card-title">4. Bundle Customiser</div>
+          <p class="card-body">"Build your stack" logic surfaced visually: protein + creatine + shaker.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">5. Subscription Toggle</div>
+          <p class="card-body">One-time vs Subscribe & Save to increase LTV dramatically.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">6. Gut Health Tracker</div>
+          <p class="card-body">SuperYou Pro experience to track feelings week-by-week. UGC generator.</p>
         </div>
       </div>
     </div>
-  </div>
-  <div class="slide-footer">
-    <span class="slide-footer-brand">superyou.in</span>
-    <span class="slide-footer-num">07</span>
-  </div>
-</section>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">06</span>
+    </div>
+  </section>
 
-<script>
-const slides = document.querySelectorAll('.slide');
-const navDots = document.getElementById('navDots');
-const navCounter = document.getElementById('navCounter');
-const progress = document.getElementById('progress');
+  <!-- SLIDE 7 — Wow Factor -->
+  <section class="slide" id="slide-7" data-index="7">
+    <div class="slide-inner">
+      <div class="slide-step">Slide 7 — The Wow Factor</div>
+      <h2 class="slide-title">Wow Factor: Own the <em>"Gut-First Protein"</em> positioning</h2>
 
-// Build nav dots
-slides.forEach((_, i) => {
-  const dot = document.createElement('button');
-  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-  dot.addEventListener('click', () => {
-    slides[i].scrollIntoView({ behavior: 'smooth' });
-  });
-  navDots.appendChild(dot);
-});
+      <div class="two-col">
+        <div>
+          <div class="section-label">Wow Factor #1: The Story</div>
+          <p style="font-size:14px;color:var(--text-muted)">Immersive fermentation story: <em
+              style="color:var(--primary)">Grain → Tank → Extraction → Gut.</em> Built like an editorial feature.</p>
 
-// Scroll observer
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const idx = parseInt(entry.target.dataset.index);
-      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-      navCounter.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
-    }
-  });
-}, { threshold: 0.4 });
+          <div class="section-label" style="margin-top:24px">Wow Factor #2: The Onboarding</div>
+          <p style="font-size:14px;color:var(--text-muted)">"First 30 Days" Journey. Interactive day-by-day content to
+            normalise the transition period.</p>
+        </div>
 
-slides.forEach(s => observer.observe(s));
+        <div>
+          <div class="section-label">Wow Factor #3: The Universe</div>
+          <p style="font-size:14px;color:var(--text-muted)">The Protein Zone as a Brand Universe. Its own visual
+            identity, issue numbers, and featured reads.</p>
 
-// Progress bar
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.width = (scrollTop / docHeight * 100) + '%';
-});
-</script>
+          <div class="section-label" style="margin-top:24px">Wow Factor #4: Taste-First</div>
+          <p style="font-size:14px;color:var(--text-muted)">Lead with craveable snack-style photography for Wafers and
+            Strawberry Crème. Snack vs Supplement.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:60px; font-size:18px">"SuperYou can sell how it feels - no bloat, no
+        discomfort, no compromise."</div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">IDMS Group 8</span>
+      <span class="slide-footer-num">07</span>
+    </div>
+  </section>
+
+  <script>
+    const navDots = document.getElementById('navDots');
+    const navCounter = document.getElementById('navCounter');
+    const progressBar = document.getElementById('progress');
+    const slides = document.querySelectorAll('.slide');
+
+    // Generate dots
+    slides.forEach((slide, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
+      if (i === 0) dot.classList.add('active');
+      dot.onclick = () => {
+        slide.scrollIntoView({ behavior: 'smooth' });
+      };
+      navDots.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.nav-dot');
+
+    window.onscroll = () => {
+      let current = "";
+      slides.forEach((slide) => {
+        const slideTop = slide.offsetTop;
+        if (pageYOffset >= slideTop - 200) {
+          current = slide.getAttribute("data-index");
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.remove('active');
+        if (i == current) {
+          dot.classList.add('active');
+          navCounter.innerText = `0${parseInt(i) + 1} / 07`;
+        }
+      });
+
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + "%";
+    };
+  </script>
 </body>
+
 </html>

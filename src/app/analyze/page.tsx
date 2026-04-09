@@ -122,7 +122,7 @@ export default function AnalyzePage() {
                         <Icons.AI />
                     </div>
                     <div className={styles.headerText}>
-                        <h1>Marketing Brain</h1>
+                        <h1>AI Growth Consultant</h1>
                         <p>{data.length > 0 ? `${data.length} URLs loaded` : 'Loading sitemap...'}</p>
                     </div>
                 </div>
@@ -136,13 +136,13 @@ export default function AnalyzePage() {
                 <div className={styles.messageList}>
                     {messages.length === 0 && (
                         <div className={styles.welcomeState}>
-                            <div className={styles.welcomeIcon}>✨</div>
-                            <h2>Sitemap Intelligence</h2>
-                            <p>Ask anything about the sitemap strategy, SEO gaps, or content opportunities.</p>
+                            <div className={styles.welcomeIcon}>📈</div>
+                            <h2>Growth Intelligence</h2>
+                            <p>Identify missing high-conversion pages, funnel leaks, and quick revenue wins.</p>
                             <div className={styles.suggestions}>
-                                <button onClick={() => setInput('Find high-priority content gaps')}>Find high-priority content gaps</button>
-                                <button onClick={() => setInput('Analyze site structure for SEO')}>Analyze site structure for SEO</button>
-                                <button onClick={() => setInput('Suggest new blog categories')}>Suggest new blog categories</button>
+                                <button onClick={() => setInput('Analyze site for growth opportunities')}>Analyze site for growth opportunities</button>
+                                <button onClick={() => setInput('Identify funnel leaks')}>Identify funnel leaks</button>
+                                <button onClick={() => setInput('Suggest quick revenue wins')}>Suggest quick revenue wins</button>
                             </div>
                         </div>
                     )}
@@ -214,7 +214,7 @@ export default function AnalyzePage() {
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder={data.length === 0 ? 'Loading sitemap context...' : 'Ask about SEO, content gaps, strategy...'}
+                        placeholder={data.length === 0 ? 'Loading growth context...' : 'Ask about funnel leaks, revenue wins, strategy...'}
                         disabled={data.length === 0}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
@@ -229,7 +229,7 @@ export default function AnalyzePage() {
                     </button>
                 </form>
                 <div className={styles.inputNote}>
-                    Shift + Enter for new line • IDMS Group 8 AI Assistant
+                    Shift + Enter for new line • AI Growth Consultant
                 </div>
             </footer>
         </main>

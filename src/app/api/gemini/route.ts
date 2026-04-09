@@ -95,10 +95,14 @@ export async function POST(req: Request) {
         }
 
         const fullPrompt = `
-You are an expert SEO and Digital Marketing Analyst.
-Analyze the following sitemap data based on the user's instructions.
+You are a D2C growth consultant.
+Given this website structure, identify:
+1. Missing high-conversion pages
+2. Funnel leaks
+3. 3 quick wins to increase revenue
+4. 1 risky but high upside idea
 
-User Instructions: "${prompt}"
+User Instructions/Context: "${prompt}"
 
 Sitemap Data (${sitemapData?.length ?? 0} URLs):
 ${JSON.stringify(sitemapData, null, 2)}

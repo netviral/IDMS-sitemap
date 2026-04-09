@@ -1,50 +1,37 @@
 :root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #EF1400;
+  --accent: #EF1400;
+  --accent-rgb: 239, 20, 0;
+  --accent2: #EF1400;
+  --accent2-rgb: 239, 20, 0;
+  --accent3: #EF1400;
+  --accent4: #EF1400;
+  --text: #000000;
+  --text-muted: #333333;
+  --bg-alt: #FFFFFF;
+  --surface-alt: #FFFFFF;
+  --muted: #333333;
+  --line: rgba(239, 20, 0, 0.2);
+  --glass: rgba(255, 255, 255, 0.9);
+  --badge-bg: rgba(239, 20, 0, 0.05);
+  --overlay: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme='dark'] {
   --bg: #0b0e14;
   --surface: #151921;
   --card: #1c212b;
-  --border: rgba(255, 255, 255, 0.08);
-  --accent: #3b82f6;
-  --accent-rgb: 59, 130, 246;
-  --accent2: #f59e0b;
-  --accent2-rgb: 245, 158, 11;
-  --accent3: #10b981;
-  --accent4: #f43f5e;
+  --border: #EF1400;
+  --accent: #EF1400;
   --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --bg-alt: #0a0c10;
-  --surface-alt: #1a1e26;
   --muted: #94a3b8;
-  --line: rgba(255, 255, 255, 0.04);
-  --glass: rgba(11, 14, 20, 0.8);
+  --glass: rgba(11, 14, 20, 0.9);
   --badge-bg: rgba(255, 255, 255, 0.08);
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --radius-sm: 0.375rem;
-  --radius: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-full: 9999px;
-}
-
-[data-theme='light'] {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --accent: #2563eb;
-  --accent-rgb: 37, 99, 235;
-  --accent2: #d97706;
-  --accent2-rgb: 217, 119, 6;
-  --accent3: #059669;
-  --accent4: #e11d48;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --bg-alt: #f1f5f9;
-  --surface-alt: #f8fafc;
-  --muted: #64748b;
-  --line: #e2e8f0;
-  --glass: rgba(248, 250, 252, 0.8);
-  --badge-bg: rgba(0, 0, 0, 0.05);
+  --overlay: rgba(11, 14, 20, 0.85);
+  --line: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -60,13 +47,28 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background: url('https://d28wu8o6itv89t.cloudfront.net/images/RockyAurRaniKiPremKahaniReview-1691472839648.jpeg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   color: var(--text);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-plus-jakarta), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay);
+  z-index: -1;
 }
 
 a {
