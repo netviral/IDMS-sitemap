@@ -37,7 +37,16 @@ export default function AnalyzePage() {
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [status, setStatus] = useState('');
+    const [aiInfo, setAiInfo] = useState({ model: '', provider: '' });
     const scrollRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 400)}px`;
+        }
+    }, [input]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,6 +107,7 @@ export default function AnalyzePage() {
 
             const aiMsg: Message = { id: (Date.now() + 1).toString(), role: 'assistant', content: result.text };
             setMessages(prev => [...prev, aiMsg]);
+            setAiInfo({ model: result.model, provider: result.provider });
         } catch (err) {
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
@@ -128,7 +138,7 @@ export default function AnalyzePage() {
                 </div>
                 <div className={styles.headerStatus}>
                     <Icons.Sparkles />
-                    <span>Gemini Pro</span>
+                    <span>{aiInfo.model || 'Marketing Intel'}</span>
                 </div>
             </header>
 
@@ -140,9 +150,15 @@ export default function AnalyzePage() {
                             <h2>Growth Intelligence</h2>
                             <p>Identify missing high-conversion pages, funnel leaks, and quick revenue wins.</p>
                             <div className={styles.suggestions}>
-                                <button onClick={() => setInput('Analyze site for growth opportunities')}>Analyze site for growth opportunities</button>
-                                <button onClick={() => setInput('Identify funnel leaks')}>Identify funnel leaks</button>
-                                <button onClick={() => setInput('Suggest quick revenue wins')}>Suggest quick revenue wins</button>
+                                <button onClick={() => setInput('Act as a D2C growth specialist. Based on our current sitemap, identify critical conversion gaps and suggest 3 high-impact landing page variations to boost immediate revenue.')}>
+                                    "Act as a D2C growth specialist. Identify critical conversion gaps..."
+                                </button>
+                                <button onClick={() => setInput('Analyze our site architecture for navigation friction. Where are the likely funnel leaks, and how can we streamline the path to purchase for new visitors?')}>
+                                    "Analyze architecture for friction and funnel leaks..."
+                                </button>
+                                <button onClick={() => setInput('Examine our page categories. Compared to high-growth e-commerce brands, what missing high-intent page clusters should we prioritize to scale our SEO and paid traffic?')}>
+                                    "Identify missing high-intent page clusters..."
+                                </button>
                             </div>
                         </div>
                     )}
@@ -212,6 +228,7 @@ export default function AnalyzePage() {
             <footer className={styles.inputArea}>
                 <form onSubmit={handleSend} className={styles.inputWrapper}>
                     <textarea
+                        ref={textareaRef}
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder={data.length === 0 ? 'Loading growth context...' : 'Ask about funnel leaks, revenue wins, strategy...'}

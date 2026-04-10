@@ -9,14 +9,14 @@
 
 /* Header */
 .chatHeader {
-    height: 80px;
+    height: 70px;
     background: var(--glass);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    padding: 0 40px;
-    gap: 24px;
+    padding: 0 32px;
+    gap: 20px;
     flex-shrink: 0;
     z-index: 100;
 }
@@ -49,22 +49,21 @@
 }
 
 .aiBadge {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 14px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 8px 16px -4px rgba(var(--accent-rgb), 0.3);
 }
 
 .headerText h1 {
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-size: 1.1rem;
+    font-weight: 700;
     margin: 0;
-    letter-spacing: -0.5px;
+    color: var(--text);
 }
 
 .headerText p {
@@ -124,10 +123,10 @@
 
 .welcomeState h2 {
     font-size: 2.5rem;
-    font-weight: 900;
+    font-weight: 800;
     margin: 0;
     color: var(--text);
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
 }
 
 .suggestions {
@@ -139,23 +138,21 @@
 }
 
 .suggestions button {
-    background: var(--bg-alt);
+    background: var(--surface);
     border: 1px solid var(--border);
     padding: 10px 20px;
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 0.9rem;
     color: var(--text);
-    font-weight: 600;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    transition: all 0.2s;
     cursor: pointer;
 }
 
 .suggestions button:hover {
-    background: var(--surface);
     border-color: var(--accent);
     color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    background: var(--badge-bg);
 }
 
 /* Bubbles */
@@ -196,10 +193,9 @@
     max-width: 80%;
     padding: 16px 20px;
     border-radius: 20px;
-    font-size: 1.05rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.5;
     position: relative;
-    box-shadow: 0 4px 20px -10px rgba(0, 0, 0, 0.1);
 }
 
 .user .bubble {
@@ -314,7 +310,7 @@
 
 /* Input Area */
 .inputArea {
-    padding: 20px 40px 40px;
+    padding: 16px 32px 32px;
     background: linear-gradient(to top, var(--bg) 80%, transparent);
     position: fixed;
     bottom: 0;
@@ -324,23 +320,23 @@
 }
 
 .inputWrapper {
-    max-width: 800px;
+    width: 95%;
+    max-width: 1200px;
     margin: 0 auto;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 12px 12px 12px 24px;
+    padding: 8px 8px 8px 24px;
     display: flex;
     align-items: flex-end;
     gap: 12px;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
 }
 
 .inputWrapper:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 20px 40px -5px rgba(var(--accent-rgb), 0.2);
-    transform: translateY(-2px);
+    box-shadow: 0 15px 35px -10px rgba(var(--accent-rgb), 0.2);
 }
 
 .inputWrapper textarea {
@@ -350,10 +346,12 @@
     padding: 12px 0;
     color: var(--text);
     font-family: inherit;
-    font-size: 1.05rem;
+    font-size: 1rem;
     resize: none;
-    max-height: 200px;
+    min-height: 24px;
+    max-height: 400px;
     outline: none;
+    font-weight: 400;
 }
 
 .sendBtn {
@@ -362,17 +360,17 @@
     background: var(--accent);
     color: white;
     border: none;
-    border-radius: 16px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s;
 }
 
 .sendBtn:hover:not(:disabled) {
-    background: var(--accent-light);
-    transform: scale(1.05) rotate(-10deg);
+    opacity: 0.9;
+    transform: scale(1.02);
 }
 
 .sendBtn:disabled {
